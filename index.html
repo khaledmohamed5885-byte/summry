@@ -1,0 +1,1271 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" class="scroll-smooth dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>منصة ملخصاتي الممتازة | UniNotes Live Hub</title>
+    
+    <!-- Google Fonts: Cairo, Inter & Plus Jakarta Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800;900&family=Inter:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#eef2ff',
+                            100: '#e0e7ff',
+                            400: '#818cf8',
+                            500: '#6366f1',
+                            600: '#4f46e5',
+                            700: '#4338ca',
+                            900: '#1e1b4b',
+                        },
+                        neon: {
+                            cyan: '#00f2fe',
+                            purple: '#7928ca',
+                            pink: '#ff0080',
+                            emerald: '#10b981'
+                        }
+                    },
+                    fontFamily: {
+                        cairo: ['Cairo', 'sans-serif'],
+                        jakarta: ['Plus Jakarta Sans', 'sans-serif'],
+                    },
+                    animation: {
+                        'blob': 'blob 10s infinite alternate',
+                        'float': 'float 6s ease-in-out infinite',
+                        'pulse-glow': 'pulseGlow 3s infinite',
+                        'shimmer': 'shimmer 2.5s infinite linear',
+                    },
+                    keyframes: {
+                        blob: {
+                            '0%': { transform: 'translate(0px, 0px) scale(1)' },
+                            '33%': { transform: 'translate(40px, -60px) scale(1.15)' },
+                            '66%': { transform: 'translate(-30px, 30px) scale(0.9)' },
+                            '100%': { transform: 'translate(0px, 0px) scale(1)' },
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-12px)' },
+                        },
+                        pulseGlow: {
+                            '0%, 100%': { opacity: '0.4', filter: 'drop-shadow(0 0 15px rgba(99,102,241,0.5))' },
+                            '50%': { opacity: '0.8', filter: 'drop-shadow(0 0 25px rgba(121,40,202,0.8))' },
+                        },
+                        shimmer: {
+                            '0%': { backgroundPosition: '-200% 0' },
+                            '100%': { backgroundPosition: '200% 0' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            font-family: 'Cairo', 'Plus Jakarta Sans', sans-serif;
+            transition: background-color 0.4s cubic-bezier(0.4, 0, 0.2, 1), color 0.4s;
+            overflow-x: hidden;
+        }
+
+        html[dir="ltr"] body {
+            font-family: 'Plus Jakarta Sans', 'Cairo', sans-serif;
+        }
+
+        /* Glassmorphism Elements */
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.65);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+        }
+
+        .dark .glass-panel {
+            background: rgba(15, 23, 42, 0.7);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(226, 232, 240, 0.8);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .dark .glass-card {
+            background: rgba(30, 41, 59, 0.6);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .glass-card:hover {
+            transform: translateY(-6px) scale(1.01);
+            box-shadow: 0 20px 35px -10px rgba(99, 102, 241, 0.25);
+            border-color: rgba(99, 102, 241, 0.4);
+        }
+
+        .dark .glass-card:hover {
+            box-shadow: 0 20px 35px -10px rgba(121, 40, 202, 0.35);
+            border-color: rgba(129, 140, 248, 0.3);
+        }
+
+        /* Glowing Gradients */
+        .neon-border {
+            position: relative;
+        }
+        .neon-border::before {
+            content: '';
+            position: absolute;
+            inset: -1px;
+            background: linear-gradient(90deg, #00f2fe, #4f46e5, #ff0080);
+            border-radius: inherit;
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .neon-border:hover::before {
+            opacity: 1;
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #3b82f6 0%, #6366f1 50%, #ec4899 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .dark .gradient-text {
+            background: linear-gradient(135deg, #60a5fa 0%, #a78bfa 50%, #f472b6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .mesh-gradient-bg {
+            background-color: #0b0f19;
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(99, 102, 241, 0.25) 0px, transparent 50%),
+                radial-gradient(at 100% 0%, rgba(236, 72, 153, 0.2) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(16, 185, 129, 0.15) 0px, transparent 50%),
+                radial-gradient(at 0% 100%, rgba(121, 40, 202, 0.25) 0px, transparent 50%);
+        }
+
+        .light .mesh-gradient-bg {
+            background-color: #f8fafc;
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(99, 102, 241, 0.12) 0px, transparent 50%),
+                radial-gradient(at 100% 0%, rgba(236, 72, 153, 0.1) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(16, 185, 129, 0.08) 0px, transparent 50%);
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(148, 163, 184, 0.3);
+            border-radius: 99px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(99, 102, 241, 0.6);
+        }
+
+        /* Pulse Live Pill */
+        .live-dot {
+            width: 8px;
+            height: 8px;
+            background-color: #10b981;
+            border-radius: 50%;
+            box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+            animation: livePulse 1.8s infinite;
+        }
+        @keyframes livePulse {
+            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+            70% { transform: scale(1); box-shadow: 0 0 0 8px rgba(16, 185, 129, 0); }
+            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+        }
+    </style>
+</head>
+
+<body class="mesh-gradient-bg text-slate-900 dark:text-slate-100 min-h-screen flex flex-col relative selection:bg-brand-500 selection:text-white">
+
+    <div class="fixed inset-0 overflow-hidden pointer-events-none z-0">
+        <div class="absolute -top-40 -left-40 w-96 h-96 bg-brand-500/20 dark:bg-brand-500/30 rounded-full blur-3xl animate-blob"></div>
+        <div class="absolute top-1/3 -right-40 w-96 h-96 bg-neon-pink/15 dark:bg-neon-pink/20 rounded-full blur-3xl animate-blob" style="animation-delay: 3s;"></div>
+        <div class="absolute -bottom-40 left-1/3 w-96 h-96 bg-neon-purple/20 dark:bg-neon-purple/25 rounded-full blur-3xl animate-blob" style="animation-delay: 6s;"></div>
+    </div>
+
+    <header class="sticky top-0 z-40 w-full glass-panel border-b border-slate-200/50 dark:border-slate-800/80 transition-all">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4">
+            
+            <!-- Brand Logo -->
+            <a href="#" class="flex items-center gap-3 group relative z-10">
+                <div class="w-11 h-11 rounded-2xl bg-gradient-to-br from-brand-500 via-neon-purple to-neon-pink flex items-center justify-center text-white shadow-lg shadow-brand-500/30 group-hover:scale-105 group-hover:rotate-3 transition-all duration-300">
+                    <i class="fa-solid fa-graduation-cap text-xl"></i>
+                </div>
+                <div>
+                    <div class="flex items-center gap-2">
+                        <span class="text-2xl font-extrabold gradient-text tracking-tight">ملخصاتي</span>
+                        <span class="px-2 py-0.5 text-[10px] font-bold rounded-full bg-emerald-500/10 text-emerald-500 border border-emerald-500/20 flex items-center gap-1">
+                            <span class="live-dot"></span> LIVE
+                        </span>
+                    </div>
+                    <span class="block text-[10px] font-medium text-slate-500 dark:text-slate-400 -mt-1 tracking-wider uppercase font-jakarta">UniNotes Interactive</span>
+                </div>
+            </a>
+
+            <!-- Search Bar (Desktop) -->
+            <div class="hidden md:flex flex-1 max-w-md relative mx-6 z-10">
+                <i class="fa-solid fa-magnifying-glass absolute inset-y-0 start-3.5 my-auto h-4 w-4 text-slate-400"></i>
+                <input type="text" id="globalSearch" oninput="handleSearch()" 
+                    data-i18n-placeholder="search_placeholder"
+                    placeholder="ابحث عن اسم المادة، الكلية، أو الكاتب..." 
+                    class="w-full ps-10 pe-10 py-2.5 rounded-2xl border border-slate-200/80 dark:border-slate-700/80 bg-white/50 dark:bg-slate-900/50 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500/50 focus:border-brand-500 transition-all backdrop-blur-md">
+                <button onclick="clearSearch()" id="clearSearchBtn" class="hidden absolute inset-y-0 end-3 my-auto text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 text-xs">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <!-- Controls (Upload, Theme, Language, Favorites) -->
+            <div class="flex items-center gap-2.5 relative z-10">
+                <!-- Favorites Toggle Drawer Button -->
+                <button onclick="toggleFavoritesDrawer()" class="p-2.5 rounded-2xl border border-slate-200/80 dark:border-slate-700/80 bg-white/50 dark:bg-slate-800/50 text-slate-700 dark:text-slate-300 hover:border-amber-400 hover:text-amber-500 transition-all relative">
+                    <i class="fa-solid fa-bookmark text-base"></i>
+                    <span id="favCountBadge" class="absolute -top-1.5 -end-1.5 w-5 h-5 rounded-full bg-amber-500 text-white text-[10px] font-bold flex items-center justify-center scale-0 transition-transform">0</span>
+                </button>
+
+                <!-- Upload Summary Button -->
+                <button onclick="openUploadModal()" class="hidden sm:flex items-center gap-2 bg-gradient-to-r from-brand-600 via-neon-purple to-neon-pink hover:opacity-95 text-white px-4 py-2.5 rounded-2xl text-sm font-semibold shadow-lg shadow-brand-500/25 hover:shadow-brand-500/40 hover:-translate-y-0.5 transition-all duration-300">
+                    <i class="fa-solid fa-cloud-arrow-up"></i>
+                    <span data-i18n="upload_btn">رفع ملخص</span>
+                </button>
+
+                <!-- Language Selector -->
+                <div class="relative">
+                    <select id="langSelect" onchange="changeLanguage(this.value)" class="appearance-none bg-white/50 dark:bg-slate-800/50 border border-slate-200/80 dark:border-slate-700/80 text-xs font-semibold rounded-2xl px-3 py-2.5 pe-7 focus:outline-none focus:ring-2 focus:ring-brand-500 cursor-pointer text-slate-700 dark:text-slate-200">
+                        <option value="ar" class="dark:bg-slate-900">العربية</option>
+                        <option value="en" class="dark:bg-slate-900">English</option>
+                        <option value="fr" class="dark:bg-slate-900">Français</option>
+                    </select>
+                    <i class="fa-solid fa-chevron-down absolute end-2.5 top-1/2 -translate-y-1/2 text-[10px] text-slate-400 pointer-events-none"></i>
+                </div>
+
+                <!-- Dark/Light Mode Toggle -->
+                <button onclick="toggleTheme()" class="p-2.5 rounded-2xl border border-slate-200/80 dark:border-slate-700/80 bg-white/50 dark:bg-slate-800/50 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 transition-all">
+                    <i id="themeIcon" class="fa-solid fa-moon text-base"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <section class="relative z-10 pt-12 pb-16 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-5xl mx-auto text-center space-y-6">
+            
+            <!-- Live Badge -->
+            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand-500/10 dark:bg-brand-400/10 border border-brand-500/20 text-brand-600 dark:text-brand-400 text-xs font-bold tracking-wide backdrop-blur-md animate-float">
+                <i class="fa-solid fa-sparkles text-amber-400"></i>
+                <span data-i18n="hero_badge">المستودع الأكاديمي الشامل والحي للطلاب</span>
+            </div>
+
+            <!-- Dynamic Headline -->
+            <h1 class="text-4xl sm:text-6xl font-black tracking-tight leading-tight" data-i18n="hero_title">
+                شارك المعرفة، ارتقِ بدرجاتك مع <span class="gradient-text">ملخصاتي</span>
+            </h1>
+
+            <p class="text-base sm:text-lg text-slate-600 dark:text-slate-300 max-w-2xl mx-auto font-light leading-relaxed" data-i18n="hero_subtitle">
+                منصة تضامنية حية تجمع ملخصات المحاضرات، الامتحانات السابقة، والملفات المرجعية لجميع الكليات والسنوات الجامعية.
+            </p>
+
+            <!-- Quick Access Faculty Tags -->
+            <div class="pt-2 flex flex-wrap items-center justify-center gap-2 max-w-3xl mx-auto">
+                <span class="text-xs text-slate-400 font-semibold me-1" data-i18n="quick_access">تصفح سريع:</span>
+                <button onclick="filterByFaculty('engineering')" class="px-3.5 py-1.5 rounded-xl bg-white/60 dark:bg-slate-800/60 hover:bg-brand-500 hover:text-white dark:hover:bg-brand-600 border border-slate-200/80 dark:border-slate-700/80 text-xs font-medium backdrop-blur-sm transition-all duration-300 hover:scale-105">
+                    ⚙️ الهندسة
+                </button>
+                <button onclick="filterByFaculty('cs')" class="px-3.5 py-1.5 rounded-xl bg-white/60 dark:bg-slate-800/60 hover:bg-brand-500 hover:text-white dark:hover:bg-brand-600 border border-slate-200/80 dark:border-slate-700/80 text-xs font-medium backdrop-blur-sm transition-all duration-300 hover:scale-105">
+                    💻 الحاسبات
+                </button>
+                <button onclick="filterByFaculty('medicine')" class="px-3.5 py-1.5 rounded-xl bg-white/60 dark:bg-slate-800/60 hover:bg-brand-500 hover:text-white dark:hover:bg-brand-600 border border-slate-200/80 dark:border-slate-700/80 text-xs font-medium backdrop-blur-sm transition-all duration-300 hover:scale-105">
+                    🩺 الطب
+                </button>
+                <button onclick="filterByFaculty('business')" class="px-3.5 py-1.5 rounded-xl bg-white/60 dark:bg-slate-800/60 hover:bg-brand-500 hover:text-white dark:hover:bg-brand-600 border border-slate-200/80 dark:border-slate-700/80 text-xs font-medium backdrop-blur-sm transition-all duration-300 hover:scale-105">
+                    📊 إدارة الأعمال
+                </button>
+            </div>
+
+            <!-- LIVE STATS BANNER -->
+            <div class="pt-8 grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto">
+                <div class="glass-panel rounded-2xl p-4 text-center border border-slate-200/50 dark:border-slate-800">
+                    <div id="statTotalNotes" class="text-2xl sm:text-3xl font-extrabold gradient-text font-jakarta">1,248</div>
+                    <div class="text-[11px] font-semibold text-slate-500 dark:text-slate-400 mt-0.5" data-i18n="stat_summaries">ملخص مرفوع</div>
+                </div>
+                <div class="glass-panel rounded-2xl p-4 text-center border border-slate-200/50 dark:border-slate-800">
+                    <div id="statDownloads" class="text-2xl sm:text-3xl font-extrabold text-emerald-500 font-jakarta">45.2K</div>
+                    <div class="text-[11px] font-semibold text-slate-500 dark:text-slate-400 mt-0.5" data-i18n="stat_downloads">تحميل إجمالي</div>
+                </div>
+                <div class="glass-panel rounded-2xl p-4 text-center border border-slate-200/50 dark:border-slate-800">
+                    <div id="statActiveStudents" class="text-2xl sm:text-3xl font-extrabold text-amber-500 font-jakarta">8,910</div>
+                    <div class="text-[11px] font-semibold text-slate-500 dark:text-slate-400 mt-0.5" data-i18n="stat_students">طالب نشط</div>
+                </div>
+                <div class="glass-panel rounded-2xl p-4 text-center border border-slate-200/50 dark:border-slate-800">
+                    <div class="text-2xl sm:text-3xl font-extrabold text-neon-pink font-jakarta">4.9 / 5</div>
+                    <div class="text-[11px] font-semibold text-slate-500 dark:text-slate-400 mt-0.5" data-i18n="stat_rating">تقييم الطلاب</div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 pb-16 relative z-10 space-y-10">
+        
+        <!-- Filter Toolbar Glass Box -->
+        <div class="glass-panel rounded-3xl p-6 shadow-xl border border-slate-200/60 dark:border-slate-800">
+            <div class="flex items-center justify-between mb-5 border-b border-slate-200/40 dark:border-slate-700/50 pb-3">
+                <h3 class="font-bold text-base sm:text-lg flex items-center gap-2">
+                    <i class="fa-solid fa-sliders text-brand-500"></i>
+                    <span data-i18n="filter_title">تصفية الملخصات الشاملة</span>
+                </h3>
+                <button onclick="resetFilters()" class="text-xs text-slate-500 hover:text-brand-500 font-semibold transition-colors flex items-center gap-1">
+                    <i class="fa-solid fa-rotate-right text-[10px]"></i>
+                    <span data-i18n="reset_filters">إعادة ضبط</span>
+                </button>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                <!-- Faculty Dropdown -->
+                <div>
+                    <label class="block text-xs font-semibold text-slate-500 dark:text-slate-400 mb-1.5" data-i18n="faculty_label">الكلية / التخصص</label>
+                    <select id="facultyFilter" onchange="applyFilters()" class="w-full bg-white/70 dark:bg-slate-900/70 border border-slate-200/80 dark:border-slate-700/80 text-xs font-medium rounded-xl px-3 py-2.5 focus:outline-none focus:ring-2 focus:ring-brand-500 dark:text-white">
+                        <option value="all" data-i18n="all_faculties">جميع الكليات</option>
+                        <option value="engineering" data-i18n="fac_engineering">كلية الهندسة</option>
+                        <option value="cs" data-i18n="fac_cs">الحاسبات والمعلومات</option>
+                        <option value="medicine" data-i18n="fac_medicine">كلية الطب البشرى</option>
+                        <option value="business" data-i18n="fac_business">التجارة وإدارة الأعمال</option>
+                    </select>
+                </div>
+
+                <!-- Academic Year Dropdown -->
+                <div>
+                    <label class="block text-xs font-semibold text-slate-500 dark:text-slate-400 mb-1.5" data-i18n="year_label">السنة الدراسية</label>
+                    <select id="yearFilter" onchange="applyFilters()" class="w-full bg-white/70 dark:bg-slate-900/70 border border-slate-200/80 dark:border-slate-700/80 text-xs font-medium rounded-xl px-3 py-2.5 focus:outline-none focus:ring-2 focus:ring-brand-500 dark:text-white">
+                        <option value="all" data-i18n="all_years">جميع السنوات</option>
+                        <option value="1" data-i18n="year_1">السنة الأولى</option>
+                        <option value="2" data-i18n="year_2">السنة الثانية</option>
+                        <option value="3" data-i18n="year_3">السنة الثالثة</option>
+                        <option value="4" data-i18n="year_4">السنة الرابعة</option>
+                    </select>
+                </div>
+
+                <!-- File Format Dropdown -->
+                <div>
+                    <label class="block text-xs font-semibold text-slate-500 dark:text-slate-400 mb-1.5" data-i18n="format_label">صيغة المستند</label>
+                    <select id="formatFilter" onchange="applyFilters()" class="w-full bg-white/70 dark:bg-slate-900/70 border border-slate-200/80 dark:border-slate-700/80 text-xs font-medium rounded-xl px-3 py-2.5 focus:outline-none focus:ring-2 focus:ring-brand-500 dark:text-white">
+                        <option value="all" data-i18n="all_formats">جميع الصيغ</option>
+                        <option value="pdf">PDF Document</option>
+                        <option value="doc">Word / Docx</option>
+                        <option value="video">فيديو / شروحات</option>
+                    </select>
+                </div>
+
+                <!-- Language Dropdown Filter -->
+                <div>
+                    <label class="block text-xs font-semibold text-slate-500 dark:text-slate-400 mb-1.5" data-i18n="doc_lang_label">لغة الملف</label>
+                    <select id="docLangFilter" onchange="applyFilters()" class="w-full bg-white/70 dark:bg-slate-900/70 border border-slate-200/80 dark:border-slate-700/80 text-xs font-medium rounded-xl px-3 py-2.5 focus:outline-none focus:ring-2 focus:ring-brand-500 dark:text-white">
+                        <option value="all" data-i18n="all_languages">كل اللغات</option>
+                        <option value="ar">العربية (Arabic)</option>
+                        <option value="en">English</option>
+                        <option value="fr">Français</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section Header -->
+        <div class="flex items-center justify-between">
+            <div>
+                <h2 class="text-2xl font-bold flex items-center gap-2.5">
+                    <span data-i18n="available_summaries">الملخصات المتاحة</span>
+                    <span id="resultsCount" class="text-xs px-3 py-1 rounded-full bg-brand-500/10 text-brand-600 dark:text-brand-400 border border-brand-500/20 font-black font-jakarta">0</span>
+                </h2>
+                <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5" data-i18n="sub_summaries_text">اضغط على أي ملخص للمعاينة الحية أو التحميل المباشر</p>
+            </div>
+
+            <!-- Mobile Upload Action -->
+            <button onclick="openUploadModal()" class="sm:hidden text-xs bg-brand-600 text-white px-3.5 py-2 rounded-xl font-semibold shadow-md">
+                <i class="fa-solid fa-plus me-1"></i> رفع
+            </button>
+        </div>
+
+        <!-- Summaries Live Grid -->
+        <div id="summariesGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Dynamic JS injected summary cards -->
+        </div>
+
+        <!-- Empty State UI -->
+        <div id="emptyState" class="hidden text-center py-16 glass-panel rounded-3xl border border-dashed border-slate-300 dark:border-slate-700">
+            <div class="w-16 h-16 mx-auto mb-4 rounded-2xl bg-brand-500/10 flex items-center justify-center text-brand-500 text-2xl">
+                <i class="fa-solid fa-folder-open"></i>
+            </div>
+            <h3 class="text-lg font-bold mb-1" data-i18n="no_results_title">لم نجد أي ملخصات مطابقة!</h3>
+            <p class="text-slate-500 dark:text-slate-400 text-sm mb-5 max-w-sm mx-auto" data-i18n="no_results_desc">جرب تعديل خيارات التصفية أو التفتيش باستخدام كلمات بحث مختلفة.</p>
+            <button onclick="resetFilters()" class="px-5 py-2.5 bg-brand-600 text-white rounded-xl text-xs font-semibold shadow-lg shadow-brand-500/20">
+                <span data-i18n="reset_filters">إعادة ضبط التصفية</span>
+            </button>
+        </div>
+
+        <!-- LEADERBOARD & CONTRIBUTORS SECTION -->
+        <div class="pt-8">
+            <div class="glass-panel rounded-3xl p-6 sm:p-8 border border-slate-200/60 dark:border-slate-800 relative overflow-hidden">
+                <div class="flex items-center justify-between mb-6">
+                    <div>
+                        <span class="text-xs font-bold uppercase tracking-wider text-brand-500" data-i18n="top_contributors_badge">أبطال المشاركة</span>
+                        <h3 class="text-xl font-bold" data-i18n="top_contributors_title">أنشط المساهمين هذا الشهر</h3>
+                    </div>
+                    <i class="fa-solid fa-trophy text-amber-400 text-2xl"></i>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4" id="leaderboardGrid">
+                    <!-- Dynamic JS Leaderboards Cards -->
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <div id="previewDrawer" class="fixed inset-0 z-50 flex justify-end bg-slate-900/60 backdrop-blur-sm hidden transition-opacity">
+        <div class="w-full max-w-xl bg-white dark:bg-slate-900 h-full shadow-2xl flex flex-col border-s border-slate-200 dark:border-slate-800 transform transition-transform duration-300">
+            
+            <!-- Drawer Header -->
+            <div class="p-5 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between glass-panel">
+                <div class="flex items-center gap-3">
+                    <div id="drawerFormatIcon" class="w-10 h-10 rounded-xl bg-red-500/10 text-red-500 flex items-center justify-center font-bold">
+                        <i class="fa-solid fa-file-pdf"></i>
+                    </div>
+                    <div>
+                        <h3 id="drawerTitle" class="font-bold text-sm sm:text-base line-clamp-1">عنوان الملخص المعاين</h3>
+                        <p id="drawerMeta" class="text-xs text-slate-400">بواسطة: كاتب الملخص</p>
+                    </div>
+                </div>
+                <button onclick="closePreviewDrawer()" class="p-2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 rounded-xl">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+            </div>
+
+            <!-- Drawer Scrollable Content -->
+            <div class="flex-1 overflow-y-auto p-6 space-y-6 custom-scrollbar">
+                
+                <!-- Document Live Preview Box -->
+                <div class="p-6 rounded-2xl bg-slate-100 dark:bg-slate-800/60 border border-slate-200/80 dark:border-slate-700/80 text-center space-y-3">
+                    <i class="fa-solid fa-file-lines text-4xl text-brand-500"></i>
+                    <h4 class="font-bold text-sm" data-i18n="preview_available">معاينة الشابتر الأول متاحة</h4>
+                    <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed" id="drawerDescription">
+                        يحتوي هذا الملخص على مراجعة كاملة للفصول مع التمارين المحلولة للعام الدراسي الحالي.
+                    </p>
+                    <button onclick="triggerDownloadFromDrawer()" class="w-full py-3 bg-gradient-to-r from-brand-600 to-neon-purple text-white rounded-xl text-xs font-bold shadow-lg shadow-brand-500/20">
+                        <i class="fa-solid fa-download me-1.5"></i>
+                        <span data-i18n="download_now">تحميل الملف الكامل الآن</span>
+                    </button>
+                </div>
+
+                <!-- Discussion & Comments Section -->
+                <div class="space-y-4">
+                    <h4 class="font-bold text-sm flex items-center gap-2">
+                        <i class="fa-solid fa-comments text-brand-500"></i>
+                        <span data-i18n="comments_title">مناقشات الطلاب وآراؤهم</span>
+                    </h4>
+
+                    <!-- New Comment Input Box -->
+                    <div class="flex gap-2">
+                        <input type="text" id="commentInput" placeholder="أضف تعليقاً أو استفساراً..." class="flex-1 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-3.5 py-2 text-xs focus:outline-none focus:ring-2 focus:ring-brand-500">
+                        <button onclick="addComment()" class="px-4 py-2 bg-brand-600 hover:bg-brand-700 text-white rounded-xl text-xs font-semibold">
+                            <i class="fa-solid fa-paper-plane"></i>
+                        </button>
+                    </div>
+
+                    <!-- Comments List -->
+                    <div id="commentsList" class="space-y-3 pt-2">
+                        <!-- Dynamic Comments injected -->
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div id="favDrawer" class="fixed inset-0 z-50 flex justify-end bg-slate-900/60 backdrop-blur-sm hidden">
+        <div class="w-full max-w-md bg-white dark:bg-slate-900 h-full shadow-2xl flex flex-col border-s border-slate-200 dark:border-slate-800">
+            <div class="p-5 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between glass-panel">
+                <h3 class="font-bold text-base flex items-center gap-2">
+                    <i class="fa-solid fa-bookmark text-amber-500"></i>
+                    <span data-i18n="fav_drawer_title">الملخصات المحفوظة</span>
+                </h3>
+                <button onclick="toggleFavoritesDrawer()" class="p-2 text-slate-400">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+            </div>
+            <div id="favList" class="flex-1 overflow-y-auto p-5 space-y-3">
+                <!-- Saved items rendered dynamically -->
+            </div>
+        </div>
+    </div>
+
+    <div id="uploadModal" class="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/70 backdrop-blur-md hidden p-4 overflow-y-auto">
+        <div class="bg-white dark:bg-slate-800 rounded-3xl max-w-xl w-full p-6 sm:p-8 shadow-2xl border border-slate-200 dark:border-slate-700 transform transition-all my-8 relative">
+            <div class="flex items-center justify-between pb-4 border-b border-slate-100 dark:border-slate-700">
+                <h3 class="text-lg font-bold flex items-center gap-2">
+                    <i class="fa-solid fa-cloud-arrow-up text-brand-500"></i>
+                    <span data-i18n="modal_title">مشاركة ملخص جديد</span>
+                </h3>
+                <button onclick="closeUploadModal()" class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 text-lg">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <form id="uploadForm" onsubmit="handleUpload(event)" class="mt-5 space-y-4">
+                <div>
+                    <label class="block text-xs font-semibold mb-1" data-i18n="form_title">عنوان الملخص *</label>
+                    <input type="text" id="inputTitle" required placeholder="مثال: ملخص خوارزميات Advanced Algorithms - الشابتر 1" class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-3.5 py-2.5 text-xs focus:outline-none focus:ring-2 focus:ring-brand-500">
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-semibold mb-1" data-i18n="faculty_label">الكلية *</label>
+                        <select id="inputFaculty" required class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-3.5 py-2.5 text-xs focus:outline-none focus:ring-2 focus:ring-brand-500">
+                            <option value="engineering" data-i18n="fac_engineering">كلية الهندسة</option>
+                            <option value="cs" data-i18n="fac_cs">الحاسبات والمعلومات</option>
+                            <option value="medicine" data-i18n="fac_medicine">كلية الطب</option>
+                            <option value="business" data-i18n="fac_business">التجارة وإدارة الأعمال</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-semibold mb-1" data-i18n="year_label">السنة الدراسية *</label>
+                        <select id="inputYear" required class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-3.5 py-2.5 text-xs focus:outline-none focus:ring-2 focus:ring-brand-500">
+                            <option value="1" data-i18n="year_1">السنة الأولى</option>
+                            <option value="2" data-i18n="year_2">السنة الثانية</option>
+                            <option value="3" data-i18n="year_3">السنة الثالثة</option>
+                            <option value="4" data-i18n="year_4">السنة الرابعة</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                    <div>
+                        <label class="block text-xs font-semibold mb-1" data-i18n="format_label">صيغة الملف</label>
+                        <select id="inputFormat" class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-3.5 py-2.5 text-xs focus:outline-none focus:ring-2 focus:ring-brand-500">
+                            <option value="pdf">PDF Document</option>
+                            <option value="doc">Word / Docx</option>
+                            <option value="video">فيديو / شرح</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-semibold mb-1" data-i18n="doc_lang_label">لغة المستند</label>
+                        <select id="inputLang" class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-3.5 py-2.5 text-xs focus:outline-none focus:ring-2 focus:ring-brand-500">
+                            <option value="ar">العربية</option>
+                            <option value="en">English</option>
+                            <option value="fr">Français</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-semibold mb-1" data-i18n="form_author">اسم الطالب/الكاتب</label>
+                        <input type="text" id="inputAuthor" placeholder="مثال: أحمد محمود" class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-3.5 py-2.5 text-xs focus:outline-none focus:ring-2 focus:ring-brand-500">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-semibold mb-1" data-i18n="form_file">الملف الجامعي *</label>
+                    <div id="dropZone" onclick="triggerFileInput()" class="border-2 border-dashed border-slate-300 dark:border-slate-700 rounded-2xl p-5 text-center cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-900/50 transition-colors">
+                        <i class="fa-solid fa-cloud-arrow-up text-3xl text-brand-500 mb-2"></i>
+                        <p id="fileNameDisplay" class="text-xs text-slate-500 dark:text-slate-400" data-i18n="file_drag_drop">انقر لاختيار ملف PDF أو Docx أو قم بالسحب والإفلات هنا</p>
+                        <input type="file" id="fileInput" class="hidden" onchange="handleFileSelect(event)">
+                    </div>
+                </div>
+
+                <div class="pt-3 flex justify-end gap-2">
+                    <button type="button" onclick="closeUploadModal()" class="px-4 py-2.5 rounded-xl text-xs font-semibold text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700" data-i18n="cancel_btn">إلغاء</button>
+                    <button type="submit" class="px-6 py-2.5 bg-gradient-to-r from-brand-600 to-neon-purple text-white rounded-xl text-xs font-semibold shadow-md shadow-brand-500/20" data-i18n="publish_btn">نشر الملخص فوراً</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Notification Toast -->
+    <div id="toast" class="fixed bottom-6 end-6 z-50 transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none">
+        <div class="bg-slate-900 text-white dark:bg-white dark:text-slate-900 px-5 py-3.5 rounded-2xl shadow-2xl flex items-center gap-3 text-xs font-semibold border border-slate-700/50">
+            <i id="toastIcon" class="fa-solid fa-circle-check text-emerald-400 text-base"></i>
+            <span id="toastMsg">تمت العملية بنجاح!</span>
+        </div>
+    </div>
+
+    <footer class="mt-auto border-t border-slate-200/60 dark:border-slate-800 bg-white/40 dark:bg-slate-900/40 backdrop-blur-md text-slate-500 text-xs py-8 relative z-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div class="flex items-center gap-2">
+                <i class="fa-solid fa-graduation-cap text-brand-500 text-base"></i>
+                <span class="font-bold text-slate-700 dark:text-slate-300">منصة ملخصاتي - UniNotes Hub</span>
+                <span>© 2026 جميع الحقوق محفوظة</span>
+            </div>
+            <div class="flex gap-5">
+                <a href="#" class="hover:text-brand-500 transition-colors">الشروط والأحكام</a>
+                <a href="#" class="hover:text-brand-500 transition-colors">سياسة الخصوصية</a>
+                <a href="#" class="hover:text-brand-500 transition-colors">تواصل مع الدعم الطلابى</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Multi-Language Translation Data
+        const i18n = {
+            ar: {
+                search_placeholder: "ابحث عن اسم المادة، الكلية، أو الكاتب...",
+                upload_btn: "رفع ملخص",
+                hero_badge: "المستودع الأكاديمي الشامل والحي للطلاب",
+                hero_title: "شارك المعرفة، ارتقِ بدرجاتك مع ملخصاتي",
+                hero_subtitle: "منصة تضامنية حية تجمع ملخصات المحاضرات، الامتحانات السابقة، والملفات المرجعية لجميع الكليات والسنوات الجامعية.",
+                quick_access: "تصفح سريع:",
+                stat_summaries: "ملخص مرفوع",
+                stat_downloads: "تحميل إجمالي",
+                stat_students: "طالب نشط",
+                stat_rating: "تقييم الطلاب",
+                filter_title: "تصفية الملخصات الشاملة",
+                reset_filters: "إعادة ضبط",
+                faculty_label: "الكلية / التخصص",
+                all_faculties: "جميع الكليات",
+                fac_engineering: "كلية الهندسة",
+                fac_cs: "الحاسبات والمعلومات",
+                fac_medicine: "كلية الطب البشرى",
+                fac_business: "التجارة وإدارة الأعمال",
+                year_label: "السنة الدراسية",
+                all_years: "جميع السنوات",
+                year_1: "السنة الأولى",
+                year_2: "السنة الثانية",
+                year_3: "السنة الثالثة",
+                year_4: "السنة الرابعة",
+                format_label: "صيغة المستند",
+                all_formats: "جميع الصيغ",
+                doc_lang_label: "لغة الملف",
+                all_languages: "كل اللغات",
+                available_summaries: "الملخصات المتاحة",
+                sub_summaries_text: "اضغط على أي ملخص للمعاينة الحية أو التحميل المباشر",
+                no_results_title: "لم نجد أي ملخصات مطابقة!",
+                no_results_desc: "جرب تعديل خيارات التصفية أو التفتيش باستخدام كلمات بحث مختلفة.",
+                top_contributors_badge: "أبطال المشاركة",
+                top_contributors_title: "أنشط المساهمين هذا الشهر",
+                preview_available: "معاينة المادة متاحة",
+                download_now: "تحميل الملف الكامل الآن",
+                comments_title: "مناقشات الطلاب وآراؤهم",
+                fav_drawer_title: "الملخصات المحفوظة",
+                modal_title: "مشاركة ملخص جديد",
+                form_title: "عنوان الملخص *",
+                form_author: "اسم الطالب/الكاتب",
+                form_file: "الملف الجامعي *",
+                file_drag_drop: "انقر لاختيار ملف PDF أو Docx أو قم بالسحب والإفلات هنا",
+                cancel_btn: "إلغاء",
+                publish_btn: "نشر الملخص فوراً",
+                download_btn: "تحميل",
+                preview_btn: "معاينة",
+            },
+            en: {
+                search_placeholder: "Search course, faculty, or uploader...",
+                upload_btn: "Upload Summary",
+                hero_badge: "Comprehensive Live Academic Hub for University Students",
+                hero_title: "Share Knowledge, Elevate Grades with UniNotes",
+                hero_subtitle: "A collaborative student platform for lectures, past exams, and study guides across all majors and years.",
+                quick_access: "Quick Search:",
+                stat_summaries: "Uploaded Summaries",
+                stat_downloads: "Total Downloads",
+                stat_students: "Active Students",
+                stat_rating: "Student Rating",
+                filter_title: "Advanced Summaries Filter",
+                reset_filters: "Reset Filters",
+                faculty_label: "Faculty / Major",
+                all_faculties: "All Faculties",
+                fac_engineering: "Engineering Faculty",
+                fac_cs: "Computer Science & IT",
+                fac_medicine: "Faculty of Medicine",
+                fac_business: "Business Administration",
+                year_label: "Academic Year",
+                all_years: "All Academic Years",
+                year_1: "1st Year",
+                year_2: "2nd Year",
+                year_3: "3rd Year",
+                year_4: "4th Year",
+                format_label: "File Format",
+                all_formats: "All Formats",
+                doc_lang_label: "Document Language",
+                all_languages: "All Languages",
+                available_summaries: "Available Notes",
+                sub_summaries_text: "Click any note card to preview live or download directly",
+                no_results_title: "No matching summaries found!",
+                no_results_desc: "Try adjusting your filter options or searching with alternate keywords.",
+                top_contributors_badge: "Top Contributors",
+                top_contributors_title: "Top Student Contributors This Month",
+                preview_available: "Document Preview Available",
+                download_now: "Download Full Document Now",
+                comments_title: "Student Discussion & Feedback",
+                fav_drawer_title: "Saved Bookmarks",
+                modal_title: "Share a New Summary",
+                form_title: "Summary Title *",
+                form_author: "Student / Author Name",
+                form_file: "University File *",
+                file_drag_drop: "Click to select PDF or Docx, or drag & drop file here",
+                cancel_btn: "Cancel",
+                publish_btn: "Publish Summary Now",
+                download_btn: "Download",
+                preview_btn: "Preview",
+            },
+            fr: {
+                search_placeholder: "Rechercher matière, faculté...",
+                upload_btn: "Publier un résumé",
+                hero_badge: "Hub Académique Vivant pour Étuants Universitaires",
+                hero_title: "Partagez la connaissance avec UniNotes",
+                hero_subtitle: "Plateforme collaborative de partage de résumés, examens et guides d'étude pour toutes les facultés.",
+                quick_access: "Accès rapide:",
+                stat_summaries: "Résumés Publiés",
+                stat_downloads: "Téléchargements",
+                stat_students: "Étudiants Actifs",
+                stat_rating: "Avis des Étudiants",
+                filter_title: "Filtre Avancé de Résumés",
+                reset_filters: "Réinitialiser",
+                faculty_label: "Faculté / Filière",
+                all_faculties: "Toutes les facultés",
+                fac_engineering: "Faculté d'Ingénierie",
+                fac_cs: "Informatique & IT",
+                fac_medicine: "Faculté de Médecine",
+                fac_business: "Gestion & Commerce",
+                year_label: "Année d'étude",
+                all_years: "Toutes les années",
+                year_1: "1ère Année",
+                year_2: "2ème Année",
+                year_3: "3ème Année",
+                year_4: "4ème Année",
+                format_label: "Format de fichier",
+                all_formats: "Tous les formats",
+                doc_lang_label: "Langue du document",
+                all_languages: "Toutes les langues",
+                available_summaries: "Résumés Disponibles",
+                sub_summaries_text: "Cliquez sur une carte pour voir l'aperçu ou télécharger",
+                no_results_title: "Aucun résumé trouvé!",
+                no_results_desc: "Essayez de modifier vos filtres de recherche.",
+                top_contributors_badge: "Contributeurs Top",
+                top_contributors_title: "Meilleurs Contributeurs Ce Mois-ci",
+                preview_available: "Aperçu du document disponible",
+                download_now: "Télécharger le document complet",
+                comments_title: "Discussions des étudiants",
+                fav_drawer_title: "Résumés Favoris",
+                modal_title: "Partager un résumé",
+                form_title: "Titre du résumé *",
+                form_author: "Nom de l'auteur",
+                form_file: "Fichier Universitaire *",
+                file_drag_drop: "Cliquez pour choisir un PDF ou glissez-le ici",
+                cancel_btn: "Annuler",
+                publish_btn: "Publier",
+                download_btn: "Télécharger",
+                preview_btn: "Aperçu",
+            }
+        };
+
+        // Seed Data
+        let summariesData = [
+            {
+                id: 1,
+                title: "شرح الخوارزميات وهياكل البيانات Advanced Algorithms & Structures",
+                faculty: "cs",
+                year: "2",
+                format: "pdf",
+                lang: "ar",
+                author: "سارة محمود",
+                rating: 4.9,
+                downloads: 384,
+                desc: "ملخص شامل لكل الشوابتر الخاصة بالـ Trees, Graphs, Sorting Algorithms مع تجميعة أفكار الامتحانات.",
+                comments: ["ملخص رائع جداً أفادني في الفاينال!", "شكراً جزيلاً يا سارة"]
+            },
+            {
+                id: 2,
+                title: "Complete Operating Systems Concepts Notes 2026",
+                faculty: "cs",
+                year: "3",
+                format: "pdf",
+                lang: "en",
+                author: "John Doe",
+                rating: 4.8,
+                downloads: 512,
+                desc: "Detailed notes on Concurrency, Deadlocks, Memory Management, and Virtualization with exam diagrams.",
+                comments: ["Super clear diagram explanations!"]
+            },
+            {
+                id: 3,
+                title: "Résumé de Anatomie Humaine - Système Cardiovasculaire",
+                faculty: "medicine",
+                year: "1",
+                format: "pdf",
+                lang: "fr",
+                author: "Dr. Marc Dupuis",
+                rating: 4.7,
+                downloads: 210,
+                desc: "Fiche de révision complète pour le système cardiaque et circulatoire avec schémas annotés.",
+                comments: []
+            },
+            {
+                id: 4,
+                title: "سلسلة شروحات الهندسة المدنية - ميكانيكا التربة Soil Mechanics",
+                faculty: "engineering",
+                year: "3",
+                format: "video",
+                lang: "ar",
+                author: "م. كريم يوسف",
+                rating: 5.0,
+                downloads: 890,
+                desc: "تجميعة فيديوهات وشرح بالخطوات لمسائل ميكانيكا التربة واختبارات المعمل بالتفصيل.",
+                comments: ["الشرح مبسط وممتاز البشمهندس يوسف"]
+            },
+            {
+                id: 5,
+                title: "Principles of Financial Accounting & Auditing Notes",
+                faculty: "business",
+                year: "2",
+                format: "doc",
+                lang: "en",
+                author: "Emily Watson",
+                rating: 4.6,
+                downloads: 310,
+                desc: "Comprehensive review of balance sheets, trial balance, and standard accounting formulas.",
+                comments: []
+            },
+            {
+                id: 6,
+                title: "ملخص الفارماكولوجي الشامل Pharmacology 1 - جزيئات الأدوية",
+                faculty: "medicine",
+                year: "2",
+                format: "pdf",
+                lang: "ar",
+                author: "عمر خالد",
+                rating: 4.9,
+                downloads: 640,
+                desc: "جدول مقارنات الأدوية مع آليات العمل والأعراض الجانبية لكل عائلة دوائية.",
+                comments: ["جدول المقارنات سهّل حفظ الأدوية تماماً!"]
+            }
+        ];
+
+        let leaderboardData = [
+            { name: "م. كريم يوسف", points: "2,450 نقطة", uploads: 18, rank: 1, avatar: "👨‍🏫" },
+            { name: "سارة محمود", points: "1,980 نقطة", uploads: 14, rank: 2, avatar: "👩‍💻" },
+            { name: "عمر خالد", points: "1,620 نقطة", uploads: 11, rank: 3, avatar: "🩺" },
+        ];
+
+        let currentLang = 'ar';
+        let favoriteIds = [];
+        let activePreviewId = null;
+
+        // Init App On Window Load
+        window.onload = function() {
+            renderSummaries(summariesData);
+            renderLeaderboard();
+            updateFavBadge();
+        };
+
+        // Theme Toggle Logic
+        function toggleTheme() {
+            const html = document.documentElement;
+            if (html.classList.contains('dark')) {
+                html.classList.remove('dark');
+            } else {
+                html.classList.add('dark');
+            }
+            updateThemeIcon();
+        }
+
+        function updateThemeIcon() {
+            const icon = document.getElementById('themeIcon');
+            if (document.documentElement.classList.contains('dark')) {
+                icon.className = 'fa-solid fa-sun text-amber-400 text-base';
+            } else {
+                icon.className = 'fa-solid fa-moon text-slate-600 text-base';
+            }
+        }
+
+        // Language Logic
+        function changeLanguage(lang) {
+            currentLang = lang;
+            document.documentElement.lang = lang;
+            document.documentElement.dir = (lang === 'ar') ? 'rtl' : 'ltr';
+
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (i18n[lang] && i18n[lang][key]) {
+                    el.textContent = i18n[lang][key];
+                }
+            });
+
+            document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+                const key = el.getAttribute('data-i18n-placeholder');
+                if (i18n[lang] && i18n[lang][key]) {
+                    el.placeholder = i18n[lang][key];
+                }
+            });
+
+            applyFilters();
+        }
+
+        // Render Cards Grid
+        function renderSummaries(items) {
+            const grid = document.getElementById('summariesGrid');
+            const emptyState = document.getElementById('emptyState');
+            const countLabel = document.getElementById('resultsCount');
+
+            countLabel.textContent = items.length;
+
+            if (items.length === 0) {
+                grid.innerHTML = '';
+                emptyState.classList.remove('hidden');
+                return;
+            }
+
+            emptyState.classList.add('hidden');
+
+            grid.innerHTML = items.map(item => {
+                const isFav = favoriteIds.includes(item.id);
+                const badgeFormatClass = item.format === 'pdf' ? 'bg-red-500/10 text-red-500 border-red-500/20' :
+                                         item.format === 'doc' ? 'bg-blue-500/10 text-blue-500 border-blue-500/20' :
+                                         'bg-purple-500/10 text-purple-500 border-purple-500/20';
+
+                const iconFormat = item.format === 'pdf' ? 'fa-file-pdf' :
+                                   item.format === 'doc' ? 'fa-file-word' : 'fa-circle-play';
+
+                const facultyNames = {
+                    engineering: i18n[currentLang]['fac_engineering'],
+                    cs: i18n[currentLang]['fac_cs'],
+                    medicine: i18n[currentLang]['fac_medicine'],
+                    business: i18n[currentLang]['fac_business']
+                };
+
+                const yearNames = {
+                    '1': i18n[currentLang]['year_1'],
+                    '2': i18n[currentLang]['year_2'],
+                    '3': i18n[currentLang]['year_3'],
+                    '4': i18n[currentLang]['year_4']
+                };
+
+                return `
+                <div class="glass-card rounded-3xl p-5 flex flex-col justify-between relative group">
+                    <div>
+                        <!-- Header Badges & Actions -->
+                        <div class="flex items-center justify-between gap-2 mb-3">
+                            <span class="text-[10px] font-extrabold px-2.5 py-1 rounded-xl uppercase tracking-wider border ${badgeFormatClass} flex items-center gap-1.5 font-jakarta">
+                                <i class="fa-solid ${iconFormat}"></i>
+                                ${item.format.toUpperCase()}
+                            </span>
+
+                            <div class="flex items-center gap-1.5">
+                                <button onclick="toggleFavorite(${item.id})" class="p-2 rounded-xl text-xs transition-colors ${isFav ? 'text-amber-500' : 'text-slate-400 hover:text-amber-500'}">
+                                    <i class="fa-${isFav ? 'solid' : 'regular'} fa-bookmark"></i>
+                                </button>
+                                <span class="text-[11px] font-bold px-2.5 py-1 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 border border-slate-200/50 dark:border-slate-700/50">
+                                    ${yearNames[item.year]}
+                                </span>
+                            </div>
+                        </div>
+
+                        <!-- Card Title -->
+                        <h3 onclick="openPreviewDrawer(${item.id})" class="font-bold text-base line-clamp-2 mb-2 text-slate-900 dark:text-slate-100 cursor-pointer hover:text-brand-500 transition-colors">
+                            ${item.title}
+                        </h3>
+
+                        <!-- Faculty & Author Info -->
+                        <div class="space-y-1.5 text-xs text-slate-500 dark:text-slate-400 mb-4">
+                            <div class="flex items-center gap-2">
+                                <i class="fa-solid fa-university text-brand-500"></i>
+                                <span>${facultyNames[item.faculty] || item.faculty}</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <i class="fa-solid fa-user-pen text-slate-400"></i>
+                                <span>${item.author}</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Footer Info & Action Buttons -->
+                    <div class="border-t border-slate-200/60 dark:border-slate-700/50 pt-3 mt-2 flex items-center justify-between">
+                        <div class="flex items-center gap-3 text-xs font-jakarta">
+                            <span class="flex items-center gap-1 text-amber-500 font-bold">
+                                <i class="fa-solid fa-star text-xs"></i> ${item.rating}
+                            </span>
+                            <span class="text-slate-400">
+                                <i class="fa-solid fa-download me-1"></i>${item.downloads}
+                            </span>
+                        </div>
+
+                        <div class="flex items-center gap-2">
+                            <button onclick="openPreviewDrawer(${item.id})" class="p-2 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 transition-colors text-xs" title="${i18n[currentLang]['preview_btn']}">
+                                <i class="fa-solid fa-eye"></i>
+                            </button>
+                            <button onclick="downloadSummary(${item.id})" class="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-semibold text-xs shadow-md shadow-brand-500/20 transition-all">
+                                <i class="fa-solid fa-arrow-down"></i>
+                                <span>${i18n[currentLang]['download_btn']}</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                `;
+            }).join('');
+        }
+
+        // Render Contributor Leaderboard
+        function renderLeaderboard() {
+            const container = document.getElementById('leaderboardGrid');
+            container.innerHTML = leaderboardData.map(user => `
+                <div class="p-4 rounded-2xl bg-white/50 dark:bg-slate-800/50 border border-slate-200/60 dark:border-slate-700/60 flex items-center gap-3">
+                    <div class="text-2xl">${user.avatar}</div>
+                    <div class="flex-1">
+                        <h4 class="font-bold text-xs sm:text-sm">${user.name}</h4>
+                        <p class="text-[10px] text-slate-400">${user.uploads} ملخص مرفوع</p>
+                    </div>
+                    <span class="text-xs font-bold text-brand-500 font-jakarta">${user.points}</span>
+                </div>
+            `).join('');
+        }
+
+        // Filtering Logic
+        function applyFilters() {
+            const faculty = document.getElementById('facultyFilter').value;
+            const year = document.getElementById('yearFilter').value;
+            const format = document.getElementById('formatFilter').value;
+            const lang = document.getElementById('docLangFilter').value;
+            const search = document.getElementById('globalSearch').value.toLowerCase();
+
+            const filtered = summariesData.filter(item => {
+                const matchFaculty = (faculty === 'all' || item.faculty === faculty);
+                const matchYear = (year === 'all' || item.year === year);
+                const matchFormat = (format === 'all' || item.format === format);
+                const matchLang = (lang === 'all' || item.lang === lang);
+                const matchSearch = item.title.toLowerCase().includes(search) || item.author.toLowerCase().includes(search);
+
+                return matchFaculty && matchYear && matchFormat && matchLang && matchSearch;
+            });
+
+            renderSummaries(filtered);
+        }
+
+        function filterByFaculty(facultyKey) {
+            document.getElementById('facultyFilter').value = facultyKey;
+            applyFilters();
+        }
+
+        function handleSearch() {
+            const val = document.getElementById('globalSearch').value;
+            const clearBtn = document.getElementById('clearSearchBtn');
+            if (val.length > 0) clearBtn.classList.remove('hidden');
+            else clearBtn.classList.add('hidden');
+            applyFilters();
+        }
+
+        function clearSearch() {
+            document.getElementById('globalSearch').value = '';
+            handleSearch();
+        }
+
+        function resetFilters() {
+            document.getElementById('facultyFilter').value = 'all';
+            document.getElementById('yearFilter').value = 'all';
+            document.getElementById('formatFilter').value = 'all';
+            document.getElementById('docLangFilter').value = 'all';
+            document.getElementById('globalSearch').value = '';
+            document.getElementById('clearSearchBtn').classList.add('hidden');
+            applyFilters();
+        }
+
+        // Favorites Logic
+        function toggleFavorite(id) {
+            if (favoriteIds.includes(id)) {
+                favoriteIds = favoriteIds.filter(favId => favId !== id);
+                showToast('تم إزالة الملخص من القائمة المحفوظة');
+            } else {
+                favoriteIds.push(id);
+                showToast('تم حفظ الملخص في المفضلة!');
+            }
+            updateFavBadge();
+            applyFilters();
+            renderFavList();
+        }
+
+        function updateFavBadge() {
+            const badge = document.getElementById('favCountBadge');
+            badge.textContent = favoriteIds.length;
+            if (favoriteIds.length > 0) {
+                badge.classList.remove('scale-0');
+            } else {
+                badge.classList.add('scale-0');
+            }
+        }
+
+        function toggleFavoritesDrawer() {
+            const drawer = document.getElementById('favDrawer');
+            if (drawer.classList.contains('hidden')) {
+                renderFavList();
+                drawer.classList.remove('hidden');
+            } else {
+                drawer.classList.add('hidden');
+            }
+        }
+
+        function renderFavList() {
+            const container = document.getElementById('favList');
+            const items = summariesData.filter(s => favoriteIds.includes(s.id));
+            if (items.length === 0) {
+                container.innerHTML = `<p class="text-xs text-center text-slate-400 py-8">لا توجد ملخصات محفوظة حتى الآن</p>`;
+                return;
+            }
+            container.innerHTML = items.map(item => `
+                <div class="p-3 rounded-xl bg-slate-100 dark:bg-slate-800 flex items-center justify-between gap-2">
+                    <span class="text-xs font-bold line-clamp-1">${item.title}</span>
+                    <button onclick="toggleFavorite(${item.id})" class="text-red-500 text-xs">
+                        <i class="fa-solid fa-trash"></i>
+                    </button>
+                </div>
+            `).join('');
+        }
+
+        // Preview Drawer & Discussion
+        function openPreviewDrawer(id) {
+            const item = summariesData.find(s => s.id === id);
+            if (!item) return;
+
+            activePreviewId = id;
+            document.getElementById('drawerTitle').textContent = item.title;
+            document.getElementById('drawerMeta').textContent = `بواسطة: ${item.author} • ${item.downloads} تحميل`;
+            document.getElementById('drawerDescription').textContent = item.desc;
+
+            renderComments(item.comments);
+            document.getElementById('previewDrawer').classList.remove('hidden');
+        }
+
+        function closePreviewDrawer() {
+            document.getElementById('previewDrawer').classList.add('hidden');
+        }
+
+        function renderComments(comments) {
+            const list = document.getElementById('commentsList');
+            if (!comments || comments.length === 0) {
+                list.innerHTML = `<p class="text-xs text-slate-400 text-center py-2">لا توجد تعليقات بعد، كن أول من يعلق!</p>`;
+                return;
+            }
+            list.innerHTML = comments.map(c => `
+                <div class="p-3 rounded-xl bg-slate-100 dark:bg-slate-800 text-xs text-slate-700 dark:text-slate-300">
+                    ${c}
+                </div>
+            `).join('');
+        }
+
+        function addComment() {
+            const input = document.getElementById('commentInput');
+            const val = input.value.trim();
+            if (!val || !activePreviewId) return;
+
+            const item = summariesData.find(s => s.id === activePreviewId);
+            if (item) {
+                item.comments.push(val);
+                renderComments(item.comments);
+                input.value = '';
+                showToast('تم إضافه تعليقك بنجاح');
+            }
+        }
+
+        function triggerDownloadFromDrawer() {
+            if (activePreviewId) downloadSummary(activePreviewId);
+        }
+
+        function downloadSummary(id) {
+            const item = summariesData.find(s => s.id === id);
+            if (item) {
+                item.downloads++;
+                applyFilters();
+                showToast(`جاري بدء تحميل: ${item.title}`);
+            }
+        }
+
+        // Upload Modal Functions
+        function openUploadModal() {
+            document.getElementById('uploadModal').classList.remove('hidden');
+        }
+
+        function closeUploadModal() {
+            document.getElementById('uploadModal').classList.add('hidden');
+        }
+
+        function triggerFileInput() {
+            document.getElementById('fileInput').click();
+        }
+
+        function handleFileSelect(e) {
+            const file = e.target.files[0];
+            if (file) {
+                document.getElementById('fileNameDisplay').textContent = `الملف المختار: ${file.name}`;
+            }
+        }
+
+        function handleUpload(e) {
+            e.preventDefault();
+            const title = document.getElementById('inputTitle').value;
+            const faculty = document.getElementById('inputFaculty').value;
+            const year = document.getElementById('inputYear').value;
+            const format = document.getElementById('inputFormat').value;
+            const lang = document.getElementById('inputLang').value;
+            const author = document.getElementById('inputAuthor').value || 'طالب جامعي';
+
+            const newSummary = {
+                id: Date.now(),
+                title: title,
+                faculty: faculty,
+                year: year,
+                format: format,
+                lang: lang,
+                author: author,
+                rating: 5.0,
+                downloads: 1,
+                desc: "ملخص مرفوع حديثاً بواسطة الطالب إلى منصة ملخصاتي.",
+                comments: []
+            };
+
+            summariesData.unshift(newSummary);
+            applyFilters();
+            closeUploadModal();
+            showToast('تم نشر ملخصك بنجاح على المنصة!');
+            document.getElementById('uploadForm').reset();
+            document.getElementById('fileNameDisplay').setAttribute('data-i18n', 'file_drag_drop');
+        }
+
+        // Toast Helper
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            const toastMsg = document.getElementById('toastMsg');
+            toastMsg.textContent = message;
+
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            toast.classList.add('translate-y-0', 'opacity-100');
+
+            setTimeout(() => {
+                toast.classList.remove('translate-y-0', 'opacity-100');
+                toast.classList.add('translate-y-20', 'opacity-0');
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
